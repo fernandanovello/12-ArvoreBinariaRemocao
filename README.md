@@ -1,6 +1,9 @@
 # Arvores (remoção de  elemento)
 ---
+Fernanda de Souza Batista Santos
 
+fernanda.santos105@fatec.sp.gov.br
+--
 ## Objetivos
 
 Ao concluir esta atividade você deverá estender sua compreensão os seguintes conceitos:
