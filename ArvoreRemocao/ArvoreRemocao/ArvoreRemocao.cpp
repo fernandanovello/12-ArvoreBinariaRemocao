@@ -83,7 +83,7 @@ void menu()
 void inicializar()
 {
 
-	// provisÛrio porque n„o libera a memoria usada pela arvore
+	// provis√≥rio porque n√£o libera a memoria usada pela arvore
 	raiz = NULL;
 
 	cout << "Arvore inicializada \n";
@@ -241,44 +241,52 @@ void removerElementoArvore(NO* no, int valor) {
 		cout << "Elemento nao encontrado \n";
 		return;
 	}
-
-
 	// caso 1: sem filhos	
-	
-
-	// caso 2: um filho	
-	
-
-	// caso 3: dois filhos
-
-	// procura o elmento mais a esquerda da sub-arvore da direita
-	NO* sucessor = atual->dir;
-	NO* paiSucessor = atual;
-	while (sucessor->esq != NULL) {
-		paiSucessor = sucessor;
-		sucessor = sucessor->esq;
-	}
-
-	// copia o valor do sucessor para o no atual
-	atual->valor = sucessor->valor;
-
-	// se existir uma sub-arvore a direita do sucessor , entao
-	// ela deve ser ligada ao pai do sucessor
-	if (sucessor->dir != NULL)
-	{
-		paiSucessor->esq = sucessor->dir;
-	}
 	else {
-		paiSucessor->esq = NULL;
-	}
+		if (atual->esq == NULL && atual->dir == NULL) {
+			if (pai->esq == atual) {
+				pai->esq = NULL;
+			}
+			else {
+				pai->dir = NULL;
+			}
+			free(atual);
+		}
+		// caso 2: um filho
+		else {
+			if ((atual->dir != NULL && atual->esq == NULL) || (atual->esq != NULL && atual->dir == NULL)) {
+				if (atual->dir != NULL) {
+					pai->dir = atual->dir;
+				}
+				else {
+					pai->esq = atual->esq;
+				}
+				free(atual);
+			}
+			else if (atual->dir != NULL && atual->esq != NULL) {
+					NO* sucessor = atual->dir;
+					NO* paiSucessor = atual;
+					while (sucessor->esq != NULL) {
+						paiSucessor = sucessor;
+						sucessor = sucessor->esq;
+					}
 
-	//libera memoria
-	free(sucessor);
+					// copia o valor do sucessor para o no atual
+					atual->valor = sucessor->valor;
 
+					// se existir uma sub-arvore a direita do sucessor , entao
+					// ela deve ser ligada ao pai do sucessor
+					if (sucessor->dir != NULL)
+					{
+						paiSucessor->esq = sucessor->dir;
+					}
+					else {
+						paiSucessor->esq = NULL;
+					}
 
+					//libera memoria
+					free(sucessor);
+				}
+	}	
 }
-
-
-
-
-
+}
